@@ -6,7 +6,9 @@ class InteractiveMenu:
         print("2. Place Bet")
         print("3. Play Multiple Bets")
         print("4. Show Summary")
-        print("5. Exit")
+        print("5. Pause Session")
+        print("6. Resume Session")
+        print("7. Exit")
 
     def get_choice(self):
         try:

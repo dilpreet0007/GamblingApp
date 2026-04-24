@@ -14,11 +14,13 @@ class GamblerProfileService:
         conn = get_connection()
         cursor = conn.cursor()
 
-        self.repo.create(cursor, (name, email, initial_stake, initial_stake, win_th, loss_th))
+        gambler_id = self.repo.create(cursor, (name, email, initial_stake, initial_stake, win_th, loss_th))
 
         conn.commit()
         cursor.close()
         conn.close()
+
+        return gambler_id
 
     def update_gambler(self, gambler_id, name=None, email=None):
         conn = get_connection()
@@ -29,6 +31,20 @@ class GamblerProfileService:
         conn.commit()
         cursor.close()
         conn.close()
+
+    def get_thresholds(self, gambler_id):
+        conn = get_connection()
+        cursor = conn.cursor()
+
+        row = self.repo.find_by_id(cursor, gambler_id)
+
+        cursor.close()
+        conn.close()
+
+        if not row:
+            raise Exception("Gambler not found")
+
+        return row[5], row[6]  # win_threshold, loss_threshold
 
     def get_statistics(self, gambler_id):
         conn = get_connection()

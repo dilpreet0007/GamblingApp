@@ -13,8 +13,20 @@ if __name__ == "__main__":
     stake_service = StakeManagementService()
     validator = InputValidator(ValidationConfig())
 
-    stake_validation = validator.validate_initial_stake(1000)
-    limit_validation = validator.validate_limits(500, 1500, 1000)
+    print("Enter Gambler Details")
+    name = input("Name: ")
+    email = input("Email: ")
+
+    initial_stake = float(input("Initial Stake: "))
+    upper_limit = float(input("Upper Limit: "))
+    lower_limit = float(input("Lower Limit: "))
+
+    stake_validation = validator.validate_initial_stake(initial_stake)
+    limit_validation = validator.validate_limits(
+        lower_limit,
+        upper_limit,
+        initial_stake
+    )
 
     if not (stake_validation.is_valid() and limit_validation.is_valid()):
         print("Validation Failed")
@@ -22,19 +34,17 @@ if __name__ == "__main__":
         print(limit_validation.summary())
         exit()
 
-    gambler_service.create_gambler(
-        "John",
-        "john@test.com",
-        1000,
-        1500,
-        500
+    gambler_id = gambler_service.create_gambler(
+        name,
+        email,
+        initial_stake,
+        upper_limit,
+        lower_limit
     )
 
-    gambler_id = 1
+    stake_service.initialize_stake(gambler_id, initial_stake)
 
-    stake_service.initialize_stake(gambler_id, 1000)
-
-    engine = SimpleGameEngine(gambler_id, stake_service)
+    engine = SimpleGameEngine(gambler_id, stake_service, gambler_service, initial_stake, upper_limit, lower_limit)
     engine.run()
 
     print(gambler_service.get_statistics(gambler_id))

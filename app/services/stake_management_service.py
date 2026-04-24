@@ -169,3 +169,13 @@ class StakeManagementService:
 
         conn.commit()
         conn.close()
+
+    def insert_bet(self, gambler_id, amount, win_probability, outcome, stake_before, stake_after):
+        conn = get_connection()
+        cursor = conn.cursor()
+
+        self.repo.insert_bet(cursor, (gambler_id, amount, win_probability, outcome, stake_before, stake_after))
+
+        conn.commit()
+        cursor.close()
+        conn.close()

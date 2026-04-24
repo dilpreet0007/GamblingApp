@@ -7,6 +7,13 @@ class StakeRepository:
             VALUES (%s, %s, %s, %s, %s)
         """, data)
 
+    def insert_bet(self, cursor, data):
+        cursor.execute("""
+            INSERT INTO bet
+            (gambler_id, amount, win_probability, outcome, stake_before, stake_after)
+            VALUES (%s, %s, %s, %s, %s, %s)
+        """, data)
+
     def get_transactions(self, cursor, gambler_id):
         cursor.execute("""
             SELECT * FROM stake_transaction
