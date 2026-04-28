@@ -33,6 +33,9 @@ class GamblerProfileService:
         conn.close()
 
     def get_thresholds(self, gambler_id):
+        """
+
+        """
         conn = get_connection()
         cursor = conn.cursor()
 
@@ -44,7 +47,7 @@ class GamblerProfileService:
         if not row:
             raise Exception("Gambler not found")
 
-        return row[5], row[6]  # win_threshold, loss_threshold
+        return row[5], row[6] 
 
     def get_statistics(self, gambler_id):
         conn = get_connection()

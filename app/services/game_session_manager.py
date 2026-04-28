@@ -6,7 +6,6 @@ class GameSessionManager:
         self.active_sessions = {}
         self.completed_sessions = []
 
-    # START
     def start_new_session(self, gambler_id, parameters, initial_stake):
         if gambler_id in self.active_sessions:
             raise Exception("Session already active")
@@ -17,7 +16,6 @@ class GameSessionManager:
         self.active_sessions[gambler_id] = session
         return session
 
-    # CONTINUE
     def continue_session(self, gambler_id, betting_service, rounds, bet_amount):
         session = self.active_sessions.get(gambler_id)
 
@@ -35,15 +33,12 @@ class GameSessionManager:
 
         return session.summary()
 
-    # PAUSE
     def pause_session(self, gambler_id):
         self.active_sessions[gambler_id].pause()
 
-    # RESUME
     def resume_session(self, gambler_id):
         self.active_sessions[gambler_id].resume()
 
-    # END
     def end_session(self, gambler_id):
         session = self.active_sessions.pop(gambler_id)
         session._end(session.status, "MANUAL")

@@ -17,7 +17,6 @@ class OddsConfig:
             return bet_amount * self.value
 
         if self.odds_type == OddsType.PROBABILITY_BASED:
-            # inverse of probability (e.g., p=0.5 -> 2x)
             if not probability:
                 raise Exception("Probability required")
             return bet_amount * (1 / probability)

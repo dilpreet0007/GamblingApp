@@ -4,7 +4,6 @@ from app.models.bet import Bet
 
 class BettingService:
 
-    # SINGLE BET
     def place_bet(self, gambler_id, amount, probability):
         conn = get_connection()
         cursor = conn.cursor()
@@ -47,11 +46,9 @@ class BettingService:
 
         return bet.outcome
 
-    # RANDOM OUTCOME
     def _determine_outcome(self, probability):
         return random.random() < probability
 
-    # STRATEGY BET
     def place_bet_with_strategy(self, gambler_id, strategy, context, probability):
         conn = get_connection()
         cursor = conn.cursor()
@@ -68,7 +65,7 @@ class BettingService:
 
         return outcome
 
-    # MULTIPLE BETS
+    
     def place_consecutive_bets(self, gambler_id, strategy, rounds, probability):
         context = {}
         results = []

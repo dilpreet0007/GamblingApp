@@ -34,7 +34,6 @@ class SimpleGameEngine:
         self.current_session = None
 
     def run(self):
-        # Initialize gaming session
         params = SessionParameters(
             min_stake=self.loss_threshold,
             max_stake=self.win_threshold,
@@ -119,14 +118,11 @@ class SimpleGameEngine:
 
         self.display.display_game_outcome(result)
 
-        # Record game in session
         game_record = GameRecord(bet, result.outcome, stake, result.stake_after)
         self.current_session.games.append(game_record)
 
-        # Update current session stake
         self.current_session.current_stake = result.stake_after
 
-        # Check thresholds
         if result.stake_after >= self.win_threshold:
             print(f"\nCongratulations! You reached the win threshold of {self.win_threshold}. Session ended!")
             self._end_session()

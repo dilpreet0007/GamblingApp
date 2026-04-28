@@ -9,7 +9,6 @@ class StakeManagementService:
         self.repo = StakeRepository()
         self.boundary = StakeBoundary(100, 10000)
 
-    # INITIALIZE
     def initialize_stake(self, gambler_id, amount):
         status = self.boundary.validate(amount)
         if status != "OK":
@@ -30,7 +29,6 @@ class StakeManagementService:
         cursor.close()
         conn.close()
 
-    # PROCESS BET
     def process_bet(self, gambler_id, amount, won):
         conn = get_connection()
         cursor = conn.cursor()
@@ -64,11 +62,9 @@ class StakeManagementService:
 
         return self.boundary.warning(stake)
 
-    # DEPOSIT
     def deposit(self, gambler_id, amount):
         return self._adjust(gambler_id, amount, TransactionType.DEPOSIT)
 
-    # WITHDRAW
     def withdraw(self, gambler_id, amount):
         return self._adjust(gambler_id, -amount, TransactionType.WITHDRAWAL)
 
@@ -95,7 +91,6 @@ class StakeManagementService:
         cursor.close()
         conn.close()
 
-    # MONITOR
     def monitor(self, gambler_id):
         conn = get_connection()
         cursor = conn.cursor()
@@ -117,7 +112,6 @@ class StakeManagementService:
             "volatility": volatility
         }
 
-    # REPORT
     def report(self, gambler_id):
         conn = get_connection()
         cursor = conn.cursor()

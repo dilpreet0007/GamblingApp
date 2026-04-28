@@ -8,7 +8,6 @@ class InputValidator:
     def __init__(self, config):
         self.config = config
 
-    # 1. INITIAL STAKE
     def validate_initial_stake(self, stake):
         result = ValidationResult()
 
@@ -32,7 +31,6 @@ class InputValidator:
 
         return result
 
-    # 2. BET VALIDATION
     def validate_bet_amount(self, bet, current_stake):
         result = ValidationResult()
 
@@ -47,7 +45,6 @@ class InputValidator:
 
         return result
 
-    # 3. LIMIT VALIDATION
     def validate_limits(self, lower, upper, initial_stake):
         result = ValidationResult()
 
@@ -62,7 +59,6 @@ class InputValidator:
 
         return result
 
-    # 4. NUMERIC PARSING
     def parse_and_validate_numeric(self, value):
         try:
             num = float(value)
@@ -75,12 +71,10 @@ class InputValidator:
         except:
             raise ValidationException("Invalid numeric input", value=value)
 
-    # 5. NON-NEGATIVE STAKE
     def validate_non_negative(self, stake):
         if stake < 0:
             raise StakeValidationException("Negative stake not allowed", value=stake)
 
-    # 6. PROBABILITY
     def validate_probability(self, probability):
         result = ValidationResult()
 
